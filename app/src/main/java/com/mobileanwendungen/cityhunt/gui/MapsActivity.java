@@ -1,13 +1,15 @@
 package com.mobileanwendungen.cityhunt.gui;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import com.google.android.gms.maps.CameraUpdateFactory;
+import android.util.Log;
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mobileanwendungen.cityhunt.R;
 
@@ -17,8 +19,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -34,28 +34,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap map) {
         map.addMarker(new MarkerOptions()
-                .position(new LatLng(10, 10))
+                .position(new LatLng(52.16071, 10.48442))
                 .title("Hello world"));
 
     }
 
-    public ArrayList loadMarkertoList(String json) {
-        List<Marker> markerlist = new ArrayList<Marker>();
+    static public JSONArray loadMarkertoList(Context derKontext) {
+//        List<Marker> markerlist = new ArrayList<Marker>();
         try {
-            JSONObject obj = new JSONObject(loadJSONFromAsset());
+            Log.e("Baka", "Blyat^2");
+            JSONObject obj = new JSONObject(loadJSONFromAsset(derKontext));
+
             JSONArray m_jArry = obj.getJSONArray("marker");
+            return m_jArry;
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 
-    public String loadJSONFromAsset() {
+    static public String loadJSONFromAsset(Context derKontext) {
         String json = null;
         try {
-            InputStream is = this.getResources().getAssets().open("marker.json") ;
+            InputStream is = derKontext.getResources().openRawResource(R.raw.marker) ;
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);

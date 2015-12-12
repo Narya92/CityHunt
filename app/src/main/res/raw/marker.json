@@ -1,0 +1,14 @@
+{
+  "marker":[
+    {"position": "52.2626251, 10.5171587", "type": "Museum" ,"title": "Burg Dankwarderode"},
+    {"position": "52.2644916, 10.5235276","type": "Kirche", "title": "Braunschweiger Dom"},
+    {"position": "52.2651745, 10.5268884", "type": "Denkmal","title": "Staatstheater Braunschweig"},
+    {"position": "52.2622388, 10.5220173","type": "Denkmal", "title": "Kattreppeln"},
+    {"position": "52.2640081, 10.5217519","type": "Denkmal" ,"title": "Ringerbrunnen"},
+    {"position": "","type": "", "title":""},
+    {"position": "","type": "", "title":""},
+    {"position": "","type": "", "title":""},
+    {"position": "","type": "", "title":""}
+
+  ]
+}
