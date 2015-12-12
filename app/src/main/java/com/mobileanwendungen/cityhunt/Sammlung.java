@@ -17,6 +17,7 @@ public class Sammlung extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sammlung);
+        setTitle(getResources().getString(R.string.title_activity_sammlung));
         ListView sammlungsListe = (ListView) findViewById(R.id.listView);
         JSONArray jsArray = MapsActivity.loadMarkertoList(getApplicationContext());
         JSONObject[] jsMarkerList = new JSONObject[jsArray.length()];
