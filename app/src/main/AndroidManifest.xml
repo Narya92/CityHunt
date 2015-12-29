@@ -22,15 +22,16 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
         <meta-data
-            android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyCyX03A9ROA3xSO5qufqnQiXNvQ3pL4k_Q" />
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".gui.MapsActivity"
-            android:label="@string/title_activity_maps" />
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps"
+            android:exported="true"/>
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

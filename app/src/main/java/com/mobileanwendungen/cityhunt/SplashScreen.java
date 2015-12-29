@@ -6,8 +6,6 @@ import android.os.Bundle;
 
 import android.os.Handler;
 
-import com.mobileanwendungen.cityhunt.gui.MapsActivity;
-
 public class SplashScreen extends AppCompatActivity {
 
     @Override
