@@ -22,6 +22,7 @@ public class Sight implements Serializable{
     private double latitude = 52.164041;
     private double longitude = 10.540848;
     private String name = "Unnamed";
+
     private Type type = Type.MONUMENT;
 
     private String creationAge = "Unknown";
@@ -93,6 +94,7 @@ public class Sight implements Serializable{
     }
 
     public void addPhoto(String photoUri){
+
         photos.add(photoUri);
     }
 

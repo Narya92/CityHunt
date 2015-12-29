@@ -8,7 +8,7 @@ import android.os.Handler;
 
 import com.mobileanwendungen.cityhunt.model.SightList;
 
-public class SplashScreen extends AppCompatActivity {
+public class SplashScreen extends CityHuntActivity {
 
 
     @Override
@@ -27,6 +27,6 @@ public class SplashScreen extends AppCompatActivity {
                             }, 2000
         );
 
-        AppDataExchange.listOfSights = SightList.loadFromFile(this, "sightData");
+        AppDataExchange.listOfSights = SightList.loadFromFile(this, "data");
     }
 }

@@ -8,7 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Sammlung extends AppCompatActivity {
+public class Sammlung extends CityHuntActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,12 +1,17 @@
 package com.mobileanwendungen.cityhunt;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -14,8 +19,9 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.InputMismatchException;
 
-public class Detail extends AppCompatActivity {
+public class Detail extends CityHuntActivity {
 
     private File kameraAufnahmeDatei = null;
     private static int REQUEST_IMAGE_CAPTURE = 42;
@@ -29,7 +35,29 @@ public class Detail extends AppCompatActivity {
             setTitle(title);
         }
 
+        TextView taskText = (TextView)findViewById(R.id.taskText);
+        taskText.setText(AppDataExchange.currentSight.getTaskText());
+
+        EditText taskAnswer = (EditText)findViewById(R.id.taskAnswer);
+        taskAnswer.setText(AppDataExchange.currentSight.getTaskAwnser());
+
+        EditText creationAgeText = (EditText)findViewById(R.id.creationAgeText);
+        creationAgeText.setText(AppDataExchange.currentSight.getCreationAge());
+
+        EditText addressText = (EditText) findViewById(R.id.addressText);
+        addressText.setText(AppDataExchange.currentSight.getAddress());
+        
         ImageButton kameraButton = (ImageButton) findViewById(R.id.kameraButton);
+
+
+
+
+        if (AppDataExchange.currentSight.getPhotos().length > 0) {
+            GridView photoGrid = (GridView)findViewById(R.id.thumbnailGrid);
+            ImageAdapter imgAdapter = new ImageAdapter(this, AppDataExchange.currentSight.getPhotos());
+            photoGrid.setAdapter(imgAdapter);
+        }
+
 
         kameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,5 +95,18 @@ public class Detail extends AppCompatActivity {
         );
 
         return image;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EditText taskAnswer = (EditText)findViewById(R.id.taskAnswer);
+        AppDataExchange.currentSight.setTaskAwnser(taskAnswer.getText().toString());
+
+        EditText creationAgeText = (EditText)findViewById(R.id.creationAgeText);
+        AppDataExchange.currentSight.setCreationAge(creationAgeText.getText().toString());
+
+        EditText addressText = (EditText) findViewById(R.id.addressText);
+        AppDataExchange.currentSight.setAddress(addressText.getText().toString());
     }
 }

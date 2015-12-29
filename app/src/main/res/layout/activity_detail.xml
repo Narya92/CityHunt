@@ -60,7 +60,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/editText"
+                android:id="@+id/creationAgeText"
                 android:layout_gravity="center_horizontal" />
 
             <TextView
@@ -73,70 +73,20 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/editText2" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Aufgabe:"
-                android:id="@+id/task" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:text="default"
-                android:id="@+id/taskText"
-                android:autoText="false"
-                android:textSize="20dp" />
+                android:id="@+id/addressText" />
 
         </LinearLayout>
     </ScrollView>
-
-    <ImageButton
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:id="@+id/imageButton"
-        android:layout_below="@+id/vorschau"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <ImageButton
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:id="@+id/imageButton2"
-        android:layout_below="@+id/vorschau"
-        android:layout_toRightOf="@+id/imageButton"
-        android:layout_toEndOf="@+id/imageButton" />
-
-    <ImageButton
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:id="@+id/imageButton3"
-        android:layout_alignBottom="@+id/kameraButton"
-        android:layout_toLeftOf="@+id/imageButton2"
-        android:layout_toStartOf="@+id/imageButton2" />
-
-    <ImageButton
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:id="@+id/imageButton4"
-        android:layout_below="@+id/imageButton"
-        android:layout_toRightOf="@+id/imageButton"
-        android:layout_toEndOf="@+id/imageButton" />
 
     <ImageButton
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/kameraButton"
         android:src="@drawable/logo_kamera"
-        android:layout_alignBottom="@+id/imageButton4"
         android:layout_alignRight="@+id/vorschau"
         android:layout_alignEnd="@+id/vorschau"
-        android:layout_alignTop="@+id/imageButton2"
-        android:layout_toRightOf="@+id/imageButton2"
-        android:layout_toEndOf="@+id/imageButton2"
-        android:background="#00ffffff" />
+        android:background="#00ffffff"
+        android:layout_below="@+id/vorschau" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -144,12 +94,44 @@
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/taskAnswer"
+        android:layout_below="@+id/taskText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/scrollView2" />
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Aufgabe:"
+        android:id="@+id/task"
+        android:layout_below="@+id/thumbnailGrid"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="default"
+        android:id="@+id/taskText"
+        android:autoText="false"
+        android:textSize="20dp"
+        android:layout_below="@+id/task"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <GridView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/thumbnailGrid"
+        android:layout_below="@+id/vorschau"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/task"
+        android:layout_alignEnd="@+id/task"
+        android:layout_alignBottom="@+id/kameraButton"
+        android:numColumns="auto_fit" />
 
 </RelativeLayout>
 </ScrollView>
