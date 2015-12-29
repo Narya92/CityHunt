@@ -16,15 +16,6 @@ public class Sammlung extends AppCompatActivity {
         setContentView(R.layout.activity_sammlung);
         setTitle(getResources().getString(R.string.title_activity_sammlung));
         ListView sammlungsListe = (ListView) findViewById(R.id.listView);
-        JSONArray jsArray = MapsActivity.loadMarkertoList(getApplicationContext());
-        JSONObject[] jsMarkerList = new JSONObject[jsArray.length()];
-        for(int i=0; i < jsArray.length(); i++){
-            try {
-                jsMarkerList[i] = jsArray.getJSONObject(i);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        sammlungsListe.setAdapter(new SammlungAdapter(this, jsMarkerList));
+        sammlungsListe.setAdapter(new SammlungAdapter(this, AppDataExchange.listOfSights));
     }
 }

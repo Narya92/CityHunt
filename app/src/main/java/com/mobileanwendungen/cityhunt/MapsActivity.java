@@ -1,9 +1,12 @@
 package com.mobileanwendungen.cityhunt;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -26,7 +29,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        AppDataExchange.listOfSights = SightList.loadFromFile(this, "sightData");
+
 
         setContentView(R.layout.activity_maps);
         setTitle(getResources().getString(R.string.title_activity_maps));
@@ -35,6 +38,24 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.maps_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.sammlungs_liste:
+                startActivity(new Intent(this, Sammlung.class));
+                break;
+
+        }
+        return true;
+    }
+
 
     @Override
     public void onMapReady(GoogleMap map) {
