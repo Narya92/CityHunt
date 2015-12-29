@@ -20,11 +20,11 @@ public class SightList extends ArrayList<Sight> implements Serializable{
 
     public static SightList generateDemoData(){
         SightList sightList = new SightList();
-        sightList.add(new Sight(UUID.randomUUID().toString(), "Schloss Wolfenbüttel", 52.162906, 10.530108, Sight.Type.MONUMENT));
-        sightList.add(new Sight(UUID.randomUUID().toString(), "Herzog August Bibliothek", 52.164197, 10.530367, Sight.Type.MUSEUM));
-        sightList.add(new Sight(UUID.randomUUID().toString(), "St. Ansgar", 52.172997, 10.559461, Sight.Type.CHURCH));
-        sightList.add(new Sight(UUID.randomUUID().toString(), "St. Trinitatis", 52.162123, 10.541219, Sight.Type.CHURCH));
-        sightList.add(new Sight(UUID.randomUUID().toString(), "Geek & Cosplay Museum", 52.168451, 10.483701, Sight.Type.MUSEUM));
+        sightList.add(new Sight(UUID.randomUUID().toString(), "Schloss Wolfenbüttel", 52.162906, 10.530108, Sight.Type.MONUMENT, "Wie viele unechte Fenster?"));
+        sightList.add(new Sight(UUID.randomUUID().toString(), "Herzog August Bibliothek", 52.164197, 10.530367, Sight.Type.MUSEUM, "Wie viele Bücher in Regal X?"));
+        sightList.add(new Sight(UUID.randomUUID().toString(), "St. Ansgar", 52.172997, 10.559461, Sight.Type.CHURCH, "Wie viele Bänke?"));
+        sightList.add(new Sight(UUID.randomUUID().toString(), "St. Trinitatis", 52.162123, 10.541219, Sight.Type.CHURCH, "Wie viele Türen?"));
+        sightList.add(new Sight(UUID.randomUUID().toString(), "Geek & Cosplay Museum", 52.168451, 10.483701, Sight.Type.MUSEUM, "Wie hoch ist der Coolness-Faktor?"));
         return sightList;
     }
 

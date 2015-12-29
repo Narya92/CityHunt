@@ -26,15 +26,18 @@ public class Sight implements Serializable{
 
     private String creationAge = "Unknown";
     private String address = "Unknown";
-    private String text = "";
+    private String taskAwnser = "";
+
+    private String taskText = "";
     private Set<String> photos = new HashSet<>(5);
 
-    public Sight(String id, String name, double latitude, double longitude, Type type){
+    public Sight(String id, String name, double latitude, double longitude, Type type, String taskText){
         this.id = id;
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
         this.type = type;
+        this.taskText = taskText;
     }
 
     public String getCreationAge() {
@@ -45,8 +48,8 @@ public class Sight implements Serializable{
         return address;
     }
 
-    public String getText() {
-        return text;
+    public String getTaskAwnser() {
+        return taskAwnser;
     }
 
     public double getLatitude() {
@@ -69,6 +72,10 @@ public class Sight implements Serializable{
         return id;
     }
 
+    public String getTaskText() {
+        return taskText;
+    }
+
     public String[] getPhotos(){
         return photos.toArray(new String[photos.size()]);
     }
@@ -81,8 +88,8 @@ public class Sight implements Serializable{
         this.address = address;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setTaskAwnser(String text) {
+        this.taskAwnser = text;
     }
 
     public void addPhoto(String photoUri){
