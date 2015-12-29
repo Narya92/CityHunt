@@ -12,6 +12,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mobileanwendungen.cityhunt.model.Sight;
 import com.mobileanwendungen.cityhunt.model.SightList;
@@ -22,9 +23,15 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+
+    Map<Marker, Sight> markerSightMap = new HashMap<>();
+    Marker activatedMarker = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +44,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
     }
 
     @Override
@@ -60,10 +68,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap map) {
 
+        map.setOnMarkerClickListener(this);
+
         for(Sight sight : AppDataExchange.listOfSights){
-            map.addMarker(new MarkerOptions()
+
+            Marker addedMarker = map.addMarker(new MarkerOptions()
                     .position(new LatLng(sight.getLatitude(), sight.getLongitude()))
                     .title(sight.getName()));
+            markerSightMap.put(addedMarker, sight);
         }
     }
 
@@ -96,5 +108,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             return null;
         }
         return json;
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        if(marker.equals(activatedMarker)) {
+            Intent startMapsActivity = new Intent(this, Detail.class);
+            AppDataExchange.currentSight = markerSightMap.get(marker);
+            startActivity(startMapsActivity);
+            return true;
+        }else{
+            activatedMarker = marker;
+            return false;
+        }
     }
 }
