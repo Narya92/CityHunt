@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 
-public class MapsActivity extends CityHuntActivity implements OnMapReadyCallback {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
