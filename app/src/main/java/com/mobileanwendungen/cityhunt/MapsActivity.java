@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -38,6 +39,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     Marker activatedMarker = null;
     Marker ownLocationMarker = null;
     GoogleMap googleMaps = null;
+    MapFragment mapFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps);
         setTitle(getResources().getString(R.string.title_activity_maps));
 
-        MapFragment mapFragment = (MapFragment) getFragmentManager()
+        mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
@@ -104,37 +106,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         map.setMyLocationEnabled(true);
     }
 
-    static public JSONArray loadMarkertoList(Context derKontext) {
-//        List<Marker> markerlist = new ArrayList<Marker>();
-        try {
-            Log.e("Baka", "Blyat^2");
-            JSONObject obj = new JSONObject(loadJSONFromAsset(derKontext));
-
-            JSONArray m_jArry = obj.getJSONArray("marker");
-            return m_jArry;
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    static public String loadJSONFromAsset(Context derKontext) {
-        String json = null;
-        try {
-            InputStream is = derKontext.getResources().openRawResource(R.raw.marker) ;
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        return json;
-    }
-
     @Override
     public boolean onMarkerClick(Marker marker) {
         if(marker.equals(activatedMarker) && markerSightMap.containsKey(marker)) {
@@ -144,7 +115,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             return true;
         }else{
             activatedMarker = marker;
-            if(googleMaps.getCameraPosition().zoom < 11) {
+            if(googleMaps.getCameraPosition().zoom < 12) {
                 googleMaps.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition.Builder().target(marker.getPosition()).zoom(14).build()));
             }
             return false;
@@ -163,6 +134,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
             );
             googleMaps.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition.Builder().target(position).zoom(14).build()));
+            findViewById(R.id.label_position_info).setVisibility(View.GONE);
         }else {
             ownLocationMarker.setPosition(position);
         }

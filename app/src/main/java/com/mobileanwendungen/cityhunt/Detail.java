@@ -8,20 +8,24 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.InputMismatchException;
 
@@ -34,6 +38,7 @@ public class Detail extends CityHuntActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
         setTitle(AppDataExchange.currentSight.getName());
 
         TextView taskText = (TextView)findViewById(R.id.taskText);
@@ -63,12 +68,52 @@ public class Detail extends CityHuntActivity {
         ImageButton kameraButton = (ImageButton) findViewById(R.id.kameraButton);
 
 
-
-
         if (AppDataExchange.currentSight.getPhotos().length > 0) {
             GridView photoGrid = (GridView)findViewById(R.id.thumbnailGrid);
-            ImageAdapter imgAdapter = new ImageAdapter(this, AppDataExchange.currentSight.getPhotos());
+            final String[] images = AppDataExchange.currentSight.getPhotos();
+            ImageAdapter imgAdapter = new ImageAdapter(this, Arrays.copyOfRange(images,1,images.length));
             photoGrid.setAdapter(imgAdapter);
+            ImageView image_preview = (ImageView)findViewById(R.id.image_preview);
+            image_preview.setImageBitmap(ImageAdapter.getBitmapFromFile(images[0]));
+            image_preview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setDataAndType(Uri.parse("file://"+images[0]),"image/*");
+                    v.getContext().startActivity(intent);
+                }
+            });
+
+            ImageView type_icon = (ImageView)findViewById(R.id.detail_type_icon);
+
+            switch(AppDataExchange.currentSight.getType()){
+                case CHURCH:
+                    type_icon.setImageResource(R.drawable.logo_kirche);
+                    break;
+                case MONUMENT:
+                    type_icon.setImageResource(R.drawable.logo_denkmal);
+                    break;
+                case MUSEUM:
+                    type_icon.setImageResource(R.drawable.logo_museum);
+                    break;
+            }
+        }else{
+            ImageView image_preview = (ImageView)findViewById(R.id.image_preview);
+            ImageView type_icon = (ImageView)findViewById(R.id.detail_type_icon);
+            type_icon.setVisibility(View.GONE);
+
+            switch(AppDataExchange.currentSight.getType()){
+                case CHURCH:
+                    image_preview.setImageResource(R.drawable.logo_kirche);
+                    break;
+                case MONUMENT:
+                    image_preview.setImageResource(R.drawable.logo_denkmal);
+                    break;
+                case MUSEUM:
+                    image_preview.setImageResource(R.drawable.logo_museum);
+                    break;
+            }
+
         }
 
 
@@ -92,6 +137,7 @@ public class Detail extends CityHuntActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             AppDataExchange.currentSight.addPhoto(kameraAufnahmeDatei.getAbsolutePath());
             startActivity(new Intent(this, Detail.class));
+            finish();
         }
     }
 

@@ -24,72 +24,32 @@
     <ImageView
         android:layout_width="128dp"
         android:layout_height="128dp"
-        android:id="@+id/vorschau"
-        android:src="@drawable/logo_museum" />
-
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/scrollView2"
+        android:id="@+id/image_preview"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/vorschau"
-        android:layout_alignRight="@+id/taskAnswer"
-        android:layout_alignEnd="@+id/taskAnswer">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:scaleType="fitCenter" />
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_toRightOf="@+id/vorschau"
-            android:layout_toEndOf="@+id/vorschau"
-            android:id="@+id/linearLayout"
-            android:layout_alignBottom="@+id/kameraButton">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView2" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Entstehungszeit:"
-                android:id="@+id/entstehungszeit" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/creationAgeText"
-                android:layout_gravity="center_horizontal" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Adresse"
-                android:id="@+id/adresse" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/addressText" />
-
-        </LinearLayout>
-    </ScrollView>
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:id="@+id/detail_type_icon"
+        android:src="@drawable/logo_museum"
+        android:layout_alignBottom="@+id/image_preview"
+        android:layout_alignRight="@+id/image_preview"
+        android:layout_alignEnd="@+id/image_preview"
+        android:scaleType="fitCenter" />
 
     <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:id="@+id/kameraButton"
         android:src="@drawable/logo_kamera"
-        android:layout_alignRight="@+id/vorschau"
-        android:layout_alignEnd="@+id/vorschau"
         android:background="#00ffffff"
-        android:layout_below="@+id/vorschau" />
+        android:layout_alignTop="@+id/thumbnailGrid"
+        android:layout_alignLeft="@+id/linearLayout"
+        android:layout_alignStart="@+id/linearLayout"
+        android:layout_marginLeft="5dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -109,9 +69,10 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Aufgabe:"
         android:id="@+id/task"
-        android:layout_below="@+id/thumbnailGrid"
+        android:layout_below="@+id/kameraButton"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -125,16 +86,52 @@
         android:layout_alignParentStart="true" />
 
     <GridView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:id="@+id/thumbnailGrid"
-        android:layout_below="@+id/vorschau"
+        android:numColumns="3"
+        android:layout_below="@+id/image_preview"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/task"
-        android:layout_alignEnd="@+id/task"
-        android:layout_alignBottom="@+id/kameraButton"
-        android:numColumns="auto_fit" />
+        android:layout_alignRight="@+id/image_preview"
+        android:layout_alignEnd="@+id/image_preview"
+        android:background="#f3f3f3" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/linearLayout"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/image_preview"
+        android:layout_toEndOf="@+id/image_preview">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Entstehungszeit:"
+            android:id="@+id/entstehungszeit" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/creationAgeText"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Adresse"
+            android:id="@+id/adresse" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/addressText" />
+
+    </LinearLayout>
 
 </RelativeLayout>
 </ScrollView>

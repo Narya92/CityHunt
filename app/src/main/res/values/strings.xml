@@ -3,4 +3,5 @@
     <string name="title_activity_sammlung">Sammlung</string>
     <string name="title_activity_maps">Karte</string>
     <string name="ownLocationMarkerText">Du bist hier!</string>
+    <string name="label_position_detection">Deine Position wird bestimmt ...</string>
 </resources>
