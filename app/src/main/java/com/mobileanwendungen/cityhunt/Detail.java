@@ -21,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +32,7 @@ import java.util.InputMismatchException;
 
 public class Detail extends CityHuntActivity {
 
-    private File kameraAufnahmeDatei = null;
+    private static File kameraAufnahmeDatei = null;
     private static int REQUEST_IMAGE_CAPTURE = 42;
 
     @Override
@@ -81,6 +82,17 @@ public class Detail extends CityHuntActivity {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setDataAndType(Uri.parse("file://"+images[0]),"image/*");
                     v.getContext().startActivity(intent);
+                }
+            });
+
+            image_preview.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    AppDataExchange.currentSight.removePhoto(images[0]);
+                    Toast.makeText(v.getContext(), getResources().getString(R.string.del_image_notification), Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(v.getContext(), Detail.class));
+                    finish();
+                    return true;
                 }
             });
 
@@ -134,7 +146,7 @@ public class Detail extends CityHuntActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && kameraAufnahmeDatei != null) {
             AppDataExchange.currentSight.addPhoto(kameraAufnahmeDatei.getAbsolutePath());
             startActivity(new Intent(this, Detail.class));
             finish();

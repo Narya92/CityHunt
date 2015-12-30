@@ -1,5 +1,6 @@
 package com.mobileanwendungen.cityhunt;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -7,12 +8,14 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -20,9 +23,9 @@ import java.io.IOException;
  * Created by Narya on 29.12.2015.
  */
 public class ImageAdapter extends BaseAdapter {
-    private Context mContext;
+    private Activity mContext;
     private String[] uriArray;
-    public ImageAdapter(Context c, String[] u) {
+    public ImageAdapter(Activity c, String[] u) {
         mContext = c;
         uriArray = u;
     }
@@ -45,9 +48,10 @@ public class ImageAdapter extends BaseAdapter {
         if (convertView == null) {
             // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
-            //imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
+            int size =  (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, mContext.getResources().getDisplayMetrics());
+            imageView.setLayoutParams(new GridView.LayoutParams(size, size));
             imageView.setPadding(8, 8, 8, 8);
-            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         } else {
             imageView = (ImageView) convertView;
         }
@@ -63,14 +67,24 @@ public class ImageAdapter extends BaseAdapter {
             }
         });
 
+        imageView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                AppDataExchange.currentSight.removePhoto(getItem(position));
+                Toast.makeText(mContext, mContext.getResources().getString(R.string.del_image_notification), Toast.LENGTH_LONG).show();
+                v.getContext().startActivity(new Intent(v.getContext(), Detail.class));
+                mContext.finish();
+                return true;
+            }
+        });
+
         return imageView;
     }
 
     public static Bitmap getBitmapFromFile(String file){
         BitmapFactory.Options opts = new BitmapFactory.Options();
-        opts.inSampleSize = 2;
+        opts.inSampleSize = 8;
         Bitmap btmp = BitmapFactory.decodeFile(file, opts);
-        btmp = Bitmap.createScaledBitmap(btmp, 128, 128, false);
 
         try {
             Matrix rotationMatrix = new Matrix();
@@ -86,7 +100,7 @@ public class ImageAdapter extends BaseAdapter {
                     rotationMatrix.postRotate(90);
                     break;
             }
-            btmp = Bitmap.createBitmap(btmp, 0, 0, 128, 128, rotationMatrix, true);
+            btmp = Bitmap.createBitmap(btmp, 0, 0, btmp.getWidth(), btmp.getHeight(), rotationMatrix, true);
         } catch (IOException e) {
             e.printStackTrace();
         }

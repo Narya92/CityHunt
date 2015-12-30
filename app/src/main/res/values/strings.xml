@@ -4,4 +4,5 @@
     <string name="title_activity_maps">Karte</string>
     <string name="ownLocationMarkerText">Du bist hier!</string>
     <string name="label_position_detection">Deine Position wird bestimmt ...</string>
+    <string name="del_image_notification">Bild gelöscht.</string>
 </resources>
