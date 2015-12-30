@@ -1,5 +1,6 @@
 package com.mobileanwendungen.cityhunt;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,10 +10,13 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.io.File;
@@ -30,10 +34,7 @@ public class Detail extends CityHuntActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        String title = getIntent().getStringExtra("title");
-        if(title != null) {
-            setTitle(title);
-        }
+        setTitle(AppDataExchange.currentSight.getName());
 
         TextView taskText = (TextView)findViewById(R.id.taskText);
         taskText.setText(AppDataExchange.currentSight.getTaskText());
@@ -46,6 +47,18 @@ public class Detail extends CityHuntActivity {
 
         EditText addressText = (EditText) findViewById(R.id.addressText);
         addressText.setText(AppDataExchange.currentSight.getAddress());
+
+        RelativeLayout detailLayout = (RelativeLayout) findViewById(R.id.detailLayout);
+        detailLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                v.requestFocus();
+                InputMethodManager imm = (InputMethodManager) v.getContext()
+                        .getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                return false;
+            }
+        });
         
         ImageButton kameraButton = (ImageButton) findViewById(R.id.kameraButton);
 
